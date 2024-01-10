@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Must Haves</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        #header {
+            background-color: #003366;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        #content {
+            text-align: center;
+            padding: 55px;
+        }
+        #content a button {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+            width: 310px;
+            height: 140px;
+            font-size: 35px;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #content a:hover button {
+            background-color: #3366cc;
+            color: #ffffff;
+        }
+
+        /* Responsive layout - makes the button and the input field stack on top of each other */
+        @media (max-width: 600px) {
+          #content a button {
+            width: 80%; /* You might need to adjust this value to your preference */
+            height: auto; /* Resets the button's height */
+            font-size: 18px;
+            padding: 10px;
+          }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Must have Dashboard</h1>
+    </div>
+    <div id="content">
+        <a href="/script"><button>Agency Api</button></a>
+    </div>
+</body>
+</html>

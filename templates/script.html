@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agency API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- j query library for java script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .breadcrumb {
+      margin-top: 10px;
+      margin-left: 22px;
+    }
+    .breadcrumb a {
+      text-decoration: none;
+      color: #3366cc;
+    }
+    .loader {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      background: rgba(128, 128, 128, 0.5);
+      z-index: 9999;
+      display: none;
+    }
+    .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-top: -25px;
+      margin-left: -25px;
+      border-radius: 50%;
+      border: 3px solid #000;
+      border-top-color: #fff;
+      animation: spinner 0.6s linear infinite;
+    }
+    @keyframes spinner {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+    .loader p {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      color: #000;
+    }
+    #header {
+      background-color: #003366;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: auto;
+      margin-top: 24px;
+      table-layout: fixed;
+      width: 1170px;
+      border-radius: 500px;
+    }
+    th {
+      background-color: #3366cc;
+      padding-bottom: 8px;  
+      padding-top: 8px;
+      border: 1px solid lightgrey;
+    }
+    .desc { width: 160px; }
+    .api { width: 300px; }
+    .method { width: 70px; }
+    .code { width: 80px; }
+    .result { width: 130px; }
+    .time { width: 80px; }
+    .message { width: 80px; }
+    .data { width: 230px; }
+    .dataRes { width: 90px; }
+
+    td {
+      height: 38px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+      border: 1px solid darkgrey;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #efefef;
+    }
+    tbody tr:first-child {
+      margin-top: 23px;
+    }
+    #results-body {
+      display: none;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 600px) {
+      #run-script-button {
+        width: 80%; 
+        font-size: 18px;
+        padding: 10px;
+        margin: 10px auto; 
+      }
+      table {
+        width: 100%;
+      }
+      .desc, .api, .method, .code, .result, .time, .message, .data, .dataRes {
+        width: 100%;
+        overflow-x: auto; 
+      }
+    }
+    
+    .pass {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+    #run-script-container {
+      margin-top: 22px;
+      margin-right: 22px;
+      text-align: right;
+    }
+
+    #campaign-id-input {
+      width: 200px; /* Adjust the width as needed */
+      height: 28px;
+      margin-right: 932px;
+      margin-top: 7px;
+      border-radius: 15px;
+      text-indent: 12px;
+      border: 2px solid rgba(169, 169, 169, 0.7);
+    }
+
+    #run-script-button {
+      height: 34px;
+      background-color: #3366cc;
+      font-style: normal;
+      text-align: center;
+      border-radius: 5px;
+      border: #dfdfdf;
+      width: 103px;
+      color: #ffffff;
+      margin-right: 18px;
+    }
+    /* Add new style for tooltip */
+    .tooltip {
+      display: none;
+      position: absolute;
+      background-color: #ff0000;
+      color: #ffffff;
+      padding: 5px;
+      border-radius: 5px;
+      margin-top: -30px;
+      margin-left: 270px;
+      width:210px;
+      text-align:center;
+    }
+
+    .tooltip.show {
+      display: block;
+    }
+    #run-script-button {
+      height: 34px;
+      background-color: #ffffff;
+      font-style: normal;
+      text-align: center;
+      border-radius: 15px;
+      border: 1px solid #003366; /* Updated border color */
+      width: 103px;
+      color: #003366; /* Updated text color */
+      margin-right: 24px;
+      cursor: pointer; /* Change cursor to pointer */
+      transition: color 0.5s, background-color 0.5s; /* Smooth transition */
+    }
+
+    #run-script-button:hover {
+      color: #ffffff; /* Hover text color */
+      background-color: #3366cc; /* Hover background color */
+      
+    }
+    .custom-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #ff0000;
+      color: #ffffff;
+      padding: 5px;
+      border-radius: 5px;
+      width: 210px;
+      text-align: center;
+    }
+
+    .custom-tooltip.show {
+      display: block;
+    }
+    #download-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 18px;
+      display: none; /* Hide the button by default */
+    }
+    
+    #download-button:hover {
+      background-color: #45a049;
+    }
+  
+  </style>
+</head>
+<body>
+<div id="header" style="margin: -8px; height: 50px;">
+  <h1 style="text-align: -webkit-center; margin: 2px; padding: 3px;">Agency API Must Have</h1>
+</div>
+
+<!-- Breadcrumb navigation -->
+<div class="breadcrumb">
+  <a href="javascript:void(0);" onclick="goBack()">Homepage</a> / <a href="#">Agency API</a>
+</div>
+
+<div id="run-script-container" style="position: relative;">
+
+  <!-- Add the tooltip div next to the input field -->
+  <input type="text" id="campaign-id-input" placeholder="Campaign ID">
+  <div class="tooltip" id="tooltip">Please enter a Campaign ID</div>
+
+  <button id="run-script-button">Run Script</button>
+  <button id="download-button" style="display:none;">Download CSV</button>
+</div>
+
+<div id="results">
+  <table id="results-table">
+    <thead style="font-size: medium;">
+      <tr>
+        <th class="desc">Description</th>
+        <th class="api">API</th>
+        <th class="method">Method</th>
+        <th class="code">Response Code</th>
+        <th class="result">Result (according to response code)</th>
+        <th class="time">Response Time</th>
+        <th class="message">Response Message</th>
+        <th class="data">Response Data</th>
+        <th class="dataRes">Response Data Result</th>
+      </tr>
+    </thead>
+    <tbody id="results-body">
+    </tbody>
+  </table>
+</div>
+
+<div class="loader">
+  <p>Script is running, please wait...</p>
+</div>
+
+<script>
+  var responseData; // Global variable to store response data
+
+  function goBack() {
+    // Navigate to the homepage
+    window.location.href = "/";
+  }
+
+  $(document).ready(function(){
+    $("#run-script-button").click(function(){
+      var campaignId = $("#campaign-id-input").val();
+      campaignId = parseInt(campaignId, 10);
+
+      if (!isNaN(campaignId)) {
+        console.log("Campaign ID:", campaignId);
+        $('.loader').show();
+
+        $.ajax({
+          url: "/run_script",
+          type: "post",
+          data: { 'campaign_id': campaignId },
+          success: function(response){
+            console.log("Response:", response);
+            responseData = response; // Store response data in the global variable
+
+            // Clear existing rows
+            $("#results-body").empty();
+            $('#results-body').append('<tr style="height: 23px;"></tr>');
+
+            $.each(response, function(i, item) {
+              var result_class = '';
+              var result_class_last = '';
+
+              if (item[4].trim().toLowerCase() == 'pass') {
+                result_class = 'pass';
+              } else if (item[4].trim().toLowerCase() == 'fail') {
+                result_class = 'fail';
+              }
+
+              if (item[8].trim().toLowerCase() == 'pass') {
+                result_class_last = 'pass';
+              } else if (item[8].trim().toLowerCase() == 'fail') {
+                result_class_last = 'fail';
+              }
+
+              // Append rows to the table
+              $('#results-body').append(
+                '<tr>' +
+                '<td class="desc ellipsis-tooltip" title="' + item[0] + '"><div class="custom-tooltip">' + item[0] + '</div>' + item[0] + '</td>' +
+                '<td class="api ellipsis-tooltip" title="' + item[1] + '"><div class="custom-tooltip">' + item[1] + '</div>' + item[1] + '</td>' +
+                '<td class="method ellipsis-tooltip" title="' + item[2] + '"><div class="custom-tooltip">' + item[2] + '</div>' + item[2] + '</td>' +
+                '<td class="code ellipsis-tooltip" title="' + item[3] + '"><div class="custom-tooltip">' + item[3] + '</div>' + item[3] + '</td>' +
+                '<td class="' + result_class + ' ellipsis-tooltip" title="' + item[4] + '"><div class="custom-tooltip">' + item[4] + '</div>' + item[4] + '</td>' +
+                '<td class="time ellipsis-tooltip" title="' + item[5] + '"><div class="custom-tooltip">' + item[5] + '</div>' + item[5] + '</td>' +
+                '<td class="message ellipsis-tooltip" title="' + item[6] + '"><div class="custom-tooltip">' + item[6] + '</div>' + item[6] + '</td>' +
+                '<td class="data ellipsis-tooltip" title="' + item[7].slice(1, -1) + '"><div class="custom-tooltip">' + item[7].slice(1, -1) + '</div>' + item[7] + '</td>' +
+                '<td class="' + result_class_last + ' ellipsis-tooltip" title="' + item[8] + '"><div class="custom-tooltip">' + item[8] + '</div>' + item[8] + '</td>' +
+                '</tr>'
+              );
+            });
+
+            // Show the download button
+            $("#download-button").show();
+
+            // Show the table
+            $("#results-body").show();
+            $('.loader').hide();
+          }
+        });
+      } else {
+        // Display tooltip if the input field is empty
+        $("#tooltip").addClass("show");
+        setTimeout(function() {
+          $("#tooltip").removeClass("show");
+        }, 3000);
+      }
+    });
+
+    // Download button click handler
+    $("#download-button").click(function(){
+      downloadCSV();
+    });
+
+    // Function to trigger CSV download
+    function downloadCSV() {
+      var csvContent = "data:text/csv;charset=utf-8;";
+
+      // Header row
+      csvContent += "Description,Description,API,Method,Response Code,Result (according to response code),Response Time,Response Message,Response Data,Response Data Result\n";
+
+      // Data rows
+      responseData.forEach(function(item){
+        csvContent += item.join(",") + "\n";
+      });
+
+      var encodedUri = encodeURI(csvContent);
+
+      // Create a unique filename based on the header name
+      var headerName = "Agency_API_Must_Have";
+      var timestamp = new Date().toISOString().replace(/[:.]/g, "_");
+      var filename = headerName + ".csv";
+
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+    }
+  });
+</script>
+
+</body>
+</html>
