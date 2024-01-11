@@ -20,9 +20,11 @@ def run_script():
     campaign_idd = request.form.get('campaign_id')
 
     # http://69.167.136.19:8010
-    Piroty_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBaW1hbFJhemEiLCJUT0tFTiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp6ZFdJaU9pSkJhVzFoYkZKaGVtRWlMQ0p6WTI5d1pYTWlPbHRkTENKcFpDSTZOVEF4TENKbGVIQWlPakUzTURZeU5qWTBNalI5LjNBZDBpZHJpU2hBNnBseV81cUZJR3pweHo0VERnUlFkNTgwZ1RrU2RyTkkiLCJleHAiOjIwMTk0NjY0MjR9.n6JnySi-gZvrbpxO0kQOlb0hxmNQwhmHsW9aOq_PBXY"
+    Piroty_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBaW1hbFJhemFfMjIiLCJUT0tFTiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp6ZFdJaU9pSkJhVzFoYkZKaGVtRmZNaklpTENKelkyOXdaWE1pT2x0ZExDSnBaQ0k2TVRFd05Dd2laWGh3SWpveE56QTNNVE00TmprNGZRLnUydDl0ZWxWem1WUHRkWmllUWE2TkVPRTE3NGVmZlFSNExJamtQdW52N1kiLCJleHAiOjIwMjAzMzg2OTh9.-Vo3eyz3OQGViYypBo4Oe5emU3_fCQ2fsE-wvB4_U8k"
     # id = "19233"
     id = f'{campaign_idd}'
+    
+    idD = str(f'{campaign_idd}')
     # ================================================
 
     # Campaign ID which is deleted in first in delete api and get single campaign data with campaign id.
@@ -32,41 +34,46 @@ def run_script():
     # Campaign IDd which is used for other apis in which we need campaign id to get data
     # (Dont Delete Cam1)
 
-    Campaign_IDd = "18299" 
+    Campaign_IDd = "19358" 
 
     # Campaign IDdd which is used to add 8th keyword in campaign already having 7 keywords
     # (Dont Delete Cam2)
 
-    Campaign_IDdd = "18268"
+    Campaign_IDdd = "19359"
 
     # Campaign IDdr which is used to delete last keyword of campaign
     # (Dont Delete Cam3)
 
-    Campaign_IDdr = "18414"
+    Campaign_IDdr = "19360"
 
     # Campaign IDdt which is used to deauthorize business.
     # (Business campaign Del 4)
 
-    Campaign_IDdt = "18301"
+    Campaign_IDdt = "19361"
 
     # Client id is used to get client api
 
-    Client_id = "1196"
+    Client_id = "1954"
 
     # Keyword which is used to create keyword add keyword or delete keyword
 
-    Keyword_new = f"apimusthave{id}"
+    Keyword_new = f"apimust{id}"
 
     # Client name which is used to create new client
 
-    Client_Name_New = f"apimusthave{id}"
+    Client_Name_New = f"apimust{id}"
 
     # ================================================
 
+    user_name = f"Apimust{idD}"
+    email = f"Apimust{idD}@gmail.com"
+    password =  "Usman@112"
+    
     # data which is used to create new campaign
 
+    User_id = "1104"
     business_gmb_CID = "10469100432931003566"
-    Campaign_name = f"Ppimusthave{id}"
+    Campaign_name = f"Apimusthave{id}"
     Client_name = "APITEST0026"
     keywords_for_analysis = "Red Royal Electric,American restaurant"
 
@@ -166,9 +173,6 @@ def run_script():
 
                     result_according_to_response_code = "Pass" if response_code in [200, 201, 202] else "Fail"
                     # Write the results to the CSV file
-                    # writer.writerow([description])
-                    # writer.writerow([url, method, response_code, result_according_to_response_code, response_time, response_message, response_data, response_result])
-                    # writer.writerow(['\n'])
                     response_data = str(response_data).replace('"', ';')
                     
                     writer.writerow([description, url, method, response_code, result_according_to_response_code, response_time, response_message,f'"{response_data}"', response_result])  
@@ -199,11 +203,126 @@ def run_script():
          # ====//// == Agency API == ////=======
     
             {
+                "description": "Create User with correct data",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": user_name,
+                        "email": email,
+                        "password": password
+                    },
+            },
+            
+            {
+                "description": "Create User with same username",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": user_name,
+                        "email": email,
+                        "password": password
+                    },
+            },
+            
+            {
+                "description": "Create User with same email",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": "user_name",
+                        "email": email,
+                        "password": password
+                    },
+            },
+            
+            {
+                "description": "Create User with special charcter in Username",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": "user_name@@",
+                        "email": "apimusthavestest10987@gmail.com",
+                        "password": password
+                    },
+            },
+            
+            {
+                "description": "Create User with incorrect email format",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": "user_name120",
+                        "email": "api 10987@gmail.com",
+                        "password": password
+                    },
+            },
+            
+            {
+                "description": "Create User with incorect password",
+                "url": "http://69.167.136.19:8010/users/create_user/",
+                "method": "POST",
+                "params":
+                    {
+                        "user_name": "user_name1201",
+                        "email": "api10987@gmail.com",
+                        "password": "Usman"
+                    },
+            },
+            
+            {
+                "description": "Get all User list",
+                "url": f"http://69.167.136.19:8010/users/list/",
+                "method": "GET",
+                "params": None
+            },
+            
+            {
+                "description": "Get SOS link of user with correct data",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
+                "method": "POST",
+                "params": 
+                        {
+                        "user_name": "Aimalraza_22",
+                        "password": "Aimal@11"
+                        }
+            },
+            
+            {
+                "description": "Get SOS link of user with incorrect username",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
+                "method": "POST",
+                "params": 
+                        {
+                        "user_name": "Aimalraza_",
+                        "password": "Aimal@11"
+                        }
+            },
+            
+            {
+                "description": "Get SOS link of user with incorrect password",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
+                "method": "POST",
+                "params": 
+                        {
+                        "user_name": "Aimalraza_22",
+                        "password": "Usman@1"
+                        }
+            },
+            
+            # =========================================
+            
+            {
                 "description": "Create campaign with correct data",
                 "url": "http://69.167.136.19:8010/campaigns/create/",
                 "method": "POST",
                 "params":
                     {
+                    "user_id": User_id,
                     "business_gmb_cid": business_gmb_CID,
                     "campaign_name": Campaign_name,
                     "client_name": Client_name,
@@ -217,12 +336,14 @@ def run_script():
                 "method": "POST",
                 "params":
                     {
+                    "user_id": User_id,
                     "business_gmb_cid": "98649953187944340729864995318",
                     "campaign_name": Campaign_name,
                     "client_name": Client_name,
                     "keywords_for_analysis": keywords_for_analysis
                     }
             },
+            
             
             # =============================================================
             
@@ -239,7 +360,8 @@ def run_script():
                 "params": None
             },
             
-            # =============================================================
+            
+            # # =============================================================
             
             {
                 "description": "Get list of all campaigns",
@@ -248,7 +370,7 @@ def run_script():
                 "params": None
             },
             
-            # =============================================================
+            # # =============================================================
             
             {
                 "description": "Delete campaign by providing campaign ID",
@@ -292,7 +414,7 @@ def run_script():
                         }
             },
             
-            # ======================================
+            # # ======================================
             
             {
                 "description": "Get client by providing client ID",
@@ -307,7 +429,7 @@ def run_script():
                 "params": None
             },
             
-            # # ======================================
+            # ======================================
             
             {
                 "description": "Get list of all clients",
@@ -354,6 +476,7 @@ def run_script():
             },
             
             # ======================================
+            
             
             {
                 "description": "Get list of Geo Grids URLs by providing campaign ID",
@@ -458,9 +581,7 @@ def run_script():
                 "url": f"http://69.167.136.19:8010/campaigns/business/deauthorization/{Campaign_IDdr}",
                 "method": "GET",
                 "params": None
-            },
-            
-            # ======================================    
+            }, 
         ]  # Your API list
 
     # Call the function to hit the APIs and save the results

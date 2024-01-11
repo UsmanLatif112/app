@@ -18,76 +18,69 @@ def script():
 def run_script():
     # Retrieve the campaign_id from the form data
     campaign_idd = request.form.get('campaign_id')
-    Piroty_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUElfTXVzdF9IYXZlc18yIiwiVE9LRU4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPaUpCVUVsZlRYVnpkRjlJWVhabGMxOHlJaXdpYzJOdmNHVnpJanBiWFN3aWFXUWlPakk1TkRnc0ltVjRjQ0k2TVRjd056QXlOemt4TkgwLjdub196bDBCSDI2NnZBN1dEOGZYSmNYY3Q4cXNCbWhVZDRZZ1gtRjRucjQiLCJleHAiOjIwMjAyMjc5MTR9.0FNftE_rLmd5XqoAi0ZwY2Kj-4rHPHHK4xhMCeP-PzE"
-    # ======================================
-    auth_token = Piroty_token
-    # ======================================
+
+    # http://69.167.136.19:8010
+    Piroty_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBaW1hbFJhemFfMjIiLCJUT0tFTiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp6ZFdJaU9pSkJhVzFoYkZKaGVtRmZNaklpTENKelkyOXdaWE1pT2x0ZExDSnBaQ0k2TVRFd05Dd2laWGh3SWpveE56QTNNVE00TmprNGZRLnUydDl0ZWxWem1WUHRkWmllUWE2TkVPRTE3NGVmZlFSNExJamtQdW52N1kiLCJleHAiOjIwMjAzMzg2OTh9.-Vo3eyz3OQGViYypBo4Oe5emU3_fCQ2fsE-wvB4_U8k"
+    # id = "19233"
     id = f'{campaign_idd}'
+    
+    idD = str(f'{campaign_idd}')
     # ================================================
 
-    # Campaign ID which is deleted first in delete api and get single campaign data with campaign id.
+    # Campaign ID which is deleted in first in delete api and get single campaign data with campaign id.
 
     Campaign_ID = f"{id}"
 
     # Campaign IDd which is used for other apis in which we need campaign id to get data
-    # (API must haves 1)
+    # (Dont Delete Cam1)
 
-    Campaign_IDd = "18394" 
+    Campaign_IDd = "19358" 
 
     # Campaign IDdd which is used to add 8th keyword in campaign already having 7 keywords
-    # (API must haves 2)
+    # (Dont Delete Cam2)
 
-    Campaign_IDdd = "18395"
+    Campaign_IDdd = "19359"
 
     # Campaign IDdr which is used to delete last keyword of campaign
-    # (API must haves 3)
+    # (Dont Delete Cam3)
 
-    Campaign_IDdr = "18396"
+    Campaign_IDdr = "19360"
 
     # Campaign IDdt which is used to deauthorize business.
     # (Business campaign Del 4)
 
-    Campaign_IDdt = "18430"
+    Campaign_IDdt = "19361"
 
     # Client id is used to get client api
 
-    Client_id = "2938"
-    
-    # User id is used to create Campaign api
-
-    User_id = "2948"
+    Client_id = "1954"
 
     # Keyword which is used to create keyword add keyword or delete keyword
 
-    Keyword_new = f"musthavedash{id}"
+    Keyword_new = f"apimust{id}"
 
     # Client name which is used to create new client
 
-    Client_Name_New = f"MusthaveDash{id}"
+    Client_Name_New = f"apimust{id}"
 
-    # data which is used to create new campaign
-    
-    User_id = "2948"
-    business_gmb_CID = "10469100432931003566"
-    Campaign_name = f"New API Campaign{id}"
-    Client_name = "APITEST0026"
-    keywords_for_analysis = "Red Royal Electric,American restaurant"
-    
-    # data which is used to create new campaign
-    
-    
-    user_name = f"Apimust{id}"
-    email = f"Apimust{id}@gmail.com"
+    # ================================================
+
+    user_name = f"Apimust{idD}"
+    email = f"Apimust{idD}@gmail.com"
     password =  "Usman@112"
+    
+    # data which is used to create new campaign
 
-    User_id = "2948"
+    User_id = "1104"
     business_gmb_CID = "10469100432931003566"
-    Campaign_name = f"New API Campaign{id}"
+    Campaign_name = f"Apimusthave{id}"
     Client_name = "APITEST0026"
     keywords_for_analysis = "Red Royal Electric,American restaurant"
 
-    # ======================================
+    # ========================
     api_list = []
+    # ======================================
+    auth_token = Piroty_token
     # ======================================
     # Add a dictionary to store custom error messages for specific response codes
     custom_error_messages = {
@@ -130,11 +123,11 @@ def run_script():
         451: 'Unavailable For Legal Reasons',
         429: 'Too Many Requests',
     }
-    # ======================================
+    # ================================================
+
     # Initialize the response codes dictionary
     response_codes_dict = {}
-    # ======================================
-    
+
     # Function to hit the APIs and save results in a CSV file
     def hit_apis_and_save_results(api_list, auth_token, csv_filename):
         # with open(csv_filename, 'w', newline='') as csvfile:
@@ -207,11 +200,11 @@ def run_script():
     # For example, let's assume your script's function is `hit_apis_and_save_results`
     auth_token = Piroty_token
     api_list = [
-         # ====////Agency API////=======
-            
+         # ====//// == Agency API == ////=======
+    
             {
                 "description": "Create User with correct data",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -223,7 +216,7 @@ def run_script():
             
             {
                 "description": "Create User with same username",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -235,7 +228,7 @@ def run_script():
             
             {
                 "description": "Create User with same email",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -247,7 +240,7 @@ def run_script():
             
             {
                 "description": "Create User with special charcter in Username",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -259,7 +252,7 @@ def run_script():
             
             {
                 "description": "Create User with incorrect email format",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -271,7 +264,7 @@ def run_script():
             
             {
                 "description": "Create User with incorect password",
-                "url": "http://67.225.255.186:8010/users/create_user/",
+                "url": "http://69.167.136.19:8010/users/create_user/",
                 "method": "POST",
                 "params":
                     {
@@ -283,40 +276,40 @@ def run_script():
             
             {
                 "description": "Get all User list",
-                "url": f"http://67.225.255.186:8010/users/list/",
+                "url": f"http://69.167.136.19:8010/users/list/",
                 "method": "GET",
                 "params": None
             },
             
             {
                 "description": "Get SOS link of user with correct data",
-                "url": f"http://67.225.255.186:8010/users/login_link/",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
                 "method": "POST",
                 "params": 
                         {
-                        "user_name": "API_Must_Haves_2",
-                        "password": "Usman@112"
+                        "user_name": "Aimalraza_22",
+                        "password": "Aimal@11"
                         }
             },
             
             {
                 "description": "Get SOS link of user with incorrect username",
-                "url": f"http://67.225.255.186:8010/users/login_link/",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
                 "method": "POST",
                 "params": 
                         {
-                        "user_name": "API_Must_20",
-                        "password": "Usman@112"
+                        "user_name": "Aimalraza_",
+                        "password": "Aimal@11"
                         }
             },
             
             {
                 "description": "Get SOS link of user with incorrect password",
-                "url": f"http://67.225.255.186:8010/users/login_link/",
+                "url": f"http://69.167.136.19:8010/users/login_link/",
                 "method": "POST",
                 "params": 
                         {
-                        "user_name": "API_Must_Haves_2",
+                        "user_name": "Aimalraza_22",
                         "password": "Usman@1"
                         }
             },
@@ -325,7 +318,7 @@ def run_script():
             
             {
                 "description": "Create campaign with correct data",
-                "url": "http://67.225.255.186:8010/campaigns/create/",
+                "url": "http://69.167.136.19:8010/campaigns/create/",
                 "method": "POST",
                 "params":
                     {
@@ -339,7 +332,7 @@ def run_script():
             
             {
                 "description": "Create campaign with incorrect GMB CID",
-                "url": "http://67.225.255.186:8010/campaigns/create/",
+                "url": "http://69.167.136.19:8010/campaigns/create/",
                 "method": "POST",
                 "params":
                     {
@@ -356,13 +349,13 @@ def run_script():
             
             {
                 "description": "Get campaign by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/{Campaign_ID}/",
+                "url": f"http://69.167.136.19:8010/campaigns/{Campaign_ID}/",
                 "method": "GET",
                 "params": None
             },
             {
                 "description": "Get campaign by providing incorrect campaign ID",
-                "url": "http://67.225.255.186:8010/campaigns/177/",
+                "url": "http://69.167.136.19:8010/campaigns/177/",
                 "method": "GET",
                 "params": None
             },
@@ -372,7 +365,7 @@ def run_script():
             
             {
                 "description": "Get list of all campaigns",
-                "url": "http://67.225.255.186:8010/campaigns/list/all/",
+                "url": "http://69.167.136.19:8010/campaigns/list/all/",
                 "method": "GET",
                 "params": None
             },
@@ -381,21 +374,21 @@ def run_script():
             
             {
                 "description": "Delete campaign by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/delete/{Campaign_ID}/",
+                "url": f"http://69.167.136.19:8010/campaigns/delete/{Campaign_ID}/",
                 "method": "DELETE",
                 "params": None
             },
             
             {
                 "description": "Delete campaign by providing incorrect campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/delete/1289/",
+                "url": f"http://69.167.136.19:8010/campaigns/delete/1289/",
                 "method": "DELETE",
                 "params": None
             },
             
             {
                 "description": "Delete campaign by providing already deleted campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/delete/{Campaign_ID}/",
+                "url": f"http://69.167.136.19:8010/campaigns/delete/{Campaign_ID}/",
                 "method": "DELETE",
                 "params": None
             },
@@ -404,7 +397,7 @@ def run_script():
             
             {
                 "description": "Create Client",
-                "url": "http://67.225.255.186:8010/clients/create/",
+                "url": "http://69.167.136.19:8010/clients/create/",
                 "method": "POST",
                 "params":
                     {
@@ -413,7 +406,7 @@ def run_script():
             },
             {
                 "description": "Create client with already created client name",
-                "url": "http://67.225.255.186:8010/clients/create/",
+                "url": "http://69.167.136.19:8010/clients/create/",
                 "method": "POST",
                 "params":
                     {
@@ -425,13 +418,13 @@ def run_script():
             
             {
                 "description": "Get client by providing client ID",
-                "url": f"http://67.225.255.186:8010/clients/{Client_id}/",
+                "url": f"http://69.167.136.19:8010/clients/{Client_id}/",
                 "method": "GET",
                 "params": None
             },
             {
                 "description": "Get client by providing incorrect client ID",
-                "url": f"http://67.225.255.186:8010/clients/128/",
+                "url": f"http://69.167.136.19:8010/clients/128/",
                 "method": "GET",
                 "params": None
             },
@@ -440,7 +433,7 @@ def run_script():
             
             {
                 "description": "Get list of all clients",
-                "url": f"http://67.225.255.186:8010/clients/clients/list/",
+                "url": f"http://69.167.136.19:8010/clients/clients/list/",
                 "method": "GET",
                 "params": None
             },
@@ -449,7 +442,7 @@ def run_script():
             
             {
                 "description": "Get list of all Geo Gifs URLs",
-                "url": "http://67.225.255.186:8010/geo/gifs/urls/list/",
+                "url": "http://69.167.136.19:8010/geo/gifs/urls/list/",
                 "method": "GET",
                 "params":
                     {
@@ -462,13 +455,13 @@ def run_script():
             
             {
                 "description": "Get list of Geo Gifs URLs by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/gifs/urls/campaign/{Campaign_IDd}",
+                "url": f"http://69.167.136.19:8010/geo/gifs/urls/campaign/{Campaign_IDd}",
                 "method": "GET",
                 "params": None
             },
             {
                 "description": "Get list of Geo Gifs URLs by providing incorrect campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/gifs/urls/campaign/1205",
+                "url": f"http://69.167.136.19:8010/geo/gifs/urls/campaign/1205",
                 "method": "GET",
                 "params": None
             },
@@ -477,7 +470,7 @@ def run_script():
             
             {
                 "description": "Get list of all Geo Grids URLs",
-                "url": "http://67.225.255.186:8010/geo/grid/urls/list/all/",
+                "url": "http://69.167.136.19:8010/geo/grid/urls/list/all/",
                 "method": "GET",
                 "params": None
             },
@@ -487,14 +480,14 @@ def run_script():
             
             {
                 "description": "Get list of Geo Grids URLs by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/grid/urls/{Campaign_IDd}/",
+                "url": f"http://69.167.136.19:8010/geo/grid/urls/{Campaign_IDd}/",
                 "method": "GET",
                 "params": None
             },
             
             {
                 "description": "Get list of Geo Grids URLs by providing incorrect campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/grid/urls/1496/",
+                "url": f"http://69.167.136.19:8010/geo/grid/urls/1496/",
                 "method": "GET",
                 "params": None
             },
@@ -503,14 +496,14 @@ def run_script():
             
             {
                 "description": "Get list of latest Grids URLs by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/grid/urls/latest/{Campaign_IDd}",
+                "url": f"http://69.167.136.19:8010/geo/grid/urls/latest/{Campaign_IDd}",
                 "method": "GET",
                 "params": None
             },
             
             {
                 "description": "Get list of latest Grids URLs by providing incorrect campaign ID",
-                "url": f"http://67.225.255.186:8010/geo/grid/urls/latest/8573",
+                "url": f"http://69.167.136.19:8010/geo/grid/urls/latest/8573",
                 "method": "GET",
                 "params": None
             },
@@ -519,7 +512,7 @@ def run_script():
             
             {
                 "description": "Add keyword in campaign by providing campaign id",
-                "url": "http://67.225.255.186:8010/keyword/create/",
+                "url": "http://69.167.136.19:8010/keyword/create/",
                 "method": "POST",
                 "params":
                     {
@@ -529,7 +522,7 @@ def run_script():
             },
             {
                 "description": "Add keyword which is already added in campaign by providing campaign id",
-                "url": "http://67.225.255.186:8010/keyword/create/",
+                "url": "http://69.167.136.19:8010/keyword/create/",
                 "method": "POST",
                 "params":
                     {
@@ -539,7 +532,7 @@ def run_script():
             },
             {
                 "description": "Add keyword in campaign already having 7 keywords by providing campaign id",
-                "url": "http://67.225.255.186:8010/keyword/create/",
+                "url": "http://69.167.136.19:8010/keyword/create/",
                 "method": "POST",
                 "params":
                     {
@@ -552,19 +545,19 @@ def run_script():
             
             {
                 "description": "Delete keyword from campaign by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/keyword/delete/{Keyword_new}/{Campaign_IDd}",
+                "url": f"http://69.167.136.19:8010/keyword/delete/{Keyword_new}/{Campaign_IDd}",
                 "method": "DELETE",
                 "params": None
             },
             {
                 "description": "Delete keyword which is already deleted from campaign by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/keyword/delete/{Keyword_new}/{Campaign_IDd}",
+                "url": f"http://69.167.136.19:8010/keyword/delete/{Keyword_new}/{Campaign_IDd}",
                 "method": "DELETE",
                 "params": None
             },
             {
                 "description": "Try to delete last keyword of campaign by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/keyword/delete/ramen/{Campaign_IDdr}",
+                "url": f"http://69.167.136.19:8010/keyword/delete/ramen/{Campaign_IDdr}",
                 "method": "DELETE",
                 "params": None
             },
@@ -573,24 +566,22 @@ def run_script():
             
             {
                 "description": "Deauthroize business by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/business/deauthorization/{Campaign_IDdt}",
+                "url": f"http://69.167.136.19:8010/campaigns/business/deauthorization/{Campaign_IDdt}",
                 "method": "GET",
                 "params": None
             },
             {
                 "description": "Deauthroize business which is already deauthroize by providing campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/business/deauthorization/{Campaign_IDdt}",
+                "url": f"http://69.167.136.19:8010/campaigns/business/deauthorization/{Campaign_IDdt}",
                 "method": "GET",
                 "params": None
             },
             {
                 "description": "Deauthroize business by providing incorrect campaign ID",
-                "url": f"http://67.225.255.186:8010/campaigns/business/deauthorization/{Campaign_IDdr}",
+                "url": f"http://69.167.136.19:8010/campaigns/business/deauthorization/{Campaign_IDdr}",
                 "method": "GET",
                 "params": None
-            },
-            
-            # ======================================    
+            }, 
         ]  # Your API list
 
     # Call the function to hit the APIs and save the results
